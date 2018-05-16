@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员主页</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+        }
+        #header{
+            background: blue;
+            height: 100px;
+            line-height: 100px;
+            color: #ffffff;
+            text-align: center;
+        }
+        #header .info{
+            position: absolute;
+            top: 30px;
+            right: 40px;
+        }
+        #m-menu{
+            list-style: none;
+            width: 15%;
+            background: #eaf1fb;
+            position: absolute;
+            top: 100px;
+            bottom: 70px;
+            left: 0;
+        }
+        #m-menu li{
+            height: 50px;
+            line-height: 50px;
+            padding-left: 10px;
+            border-bottom: #cccccc solid 1px;
+            font-size: 22px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        #m-menu .select{
+            background: aqua;
+            color: #ffffff;
+        }
+        #details{
+            margin-left: 15%;
+        }
+        #details table{
+            width: 80%;
+            margin: 2% auto;
+        }
+        #details table tr{
+            height: 30px;
+        }
+        #details table td{
+            padding-left: 10px;
+            width: 620px;
+        }
+        #footer{
+            height: 70px;
+            background: blue;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="header">
+    <h1>健身房管理系统</h1>
+    <div class="info">
+        <span>欢迎登录</span>
+        <span>xxx</span>
+        <a href="index.html">退出</a>
+    </div>
+
+</div>
+<div id="container">
+    <ul id="m-menu">
+        <li class="select">员工管理</li>
+    </ul>
+    <div id="details">
+        <div>
+
+        </div>
+        用户名：<input type="text" id="sUsername">
+        密码：<input type="text" id="sPassword">
+        电话：<input type="text" id="sPhone">
+        <input type="submit" value="添加" placeholder="按ID添加" id="a-staff"><br/>
+        员工id：<input type="text" id="delete-id">
+        <input type="submit" value="删除"placeholder="按ID删除" id="delete"><br/>
+        <table border="1" cellspacing="0" id="staffList">
+            <tr>
+                <td>员工编号</td>
+                <td>员工姓名</td>
+                <td>员工电话</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div id="footer"></div>
+
+<script src="lib/jquery-1.11.2.js"></script>
+<script>
+    // $(function () {
+    //     $('#m-menu li').on("click",function (e) {
+    //         $(e.target).addClass('select').siblings().removeClass('select');
+    //         $('#details table').eq($(e.target).index()).addClass('select').siblings().removeClass('select');
+    //     })
+    // });
+    $(function () {
+        $.ajax({
+            contentType: "application/json",
+            url: "/administrator/stuff",
+            type: "GET",
+            dataType: "json",
+            async: false,
+            success: function (res) {
+                for(var i=0; i<res.length; i++){
+                    $('#staffList').append(("<tr><td>"+res[i].sid+"</td><td>"+res[i].username+"</td><td>"+res[i].phone+"</td></tr>"));
+                }
+            },
+            error:function (res) {
+                alert("没有员工！");
+            }
+        });
+
+        //删除用户
+        $('#delete').on("click",function () {
+            var sDelete = document.getElementById('delete-id').value;
+            $.ajax({
+                contentType: "application/json",
+                url: "/administrator/deleteStuff/"+sDelete,
+                type: "DELETE",
+                dataType: "json",
+                async: false,
+                success: function (res) {
+                    $('#staffList').empty();
+                    for(var i=0; i<res.length; i++){
+                        $('#staffList').append(("<tr><td>"+res[i].sid+"</td><td>"+res[i].username+"</td><td>"+res[i].phone+"</td></tr>"));
+                    }
+                },
+                error:function (res) {
+                    alert("没有删除该用户！");
+                }
+            })
+        });
+        //添加用户
+        $('#a-staff').on("click",function () {
+            var sUsername = document.getElementById('sUsername').value;
+            var sPassword = document.getElementById('sPassword').value;
+            var aPhone = document.getElementById('sPhone').value;
+            var aStaff = JSON.stringify({
+                'username': sUsername,
+                'password': sPassword,
+                'phone': aPhone
+            });
+            $.ajax({
+                contentType: "application/json",
+                url: "/administrator/stuffAdd",
+                type: "POST",
+                data: aStaff,
+                dataType: "json",
+                async: false,
+                success: function(res){
+                    $('#staffList').append(("<tr><td>"+res.sid+"</td><td>"+res.username+"</td><td>"+res.phone+"</td></tr>"));
+
+                },
+                error: function (res) {
+                    alert("添加失败！");
+                }
+            })
+        });
+    })
+</script>
+</body>
+</html>

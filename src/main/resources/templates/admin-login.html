@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员登陆</title>
+    <style>
+        h1{
+            text-align: center;
+        }
+        #form{
+            width: 460px;
+            height: 180px;
+            margin: 20px auto;
+            padding-left: 20px;
+            padding-top: 20px;
+
+        }
+        #form input{
+            margin-bottom: 10px;
+        }
+        #form input[type="button"]{
+            margin-left: 190px;
+        }
+    </style>
+</head>
+<body>
+    <h1>管理员登陆</h1>
+    <form action="" id="form" method="get">
+        <div class="clearfix"></div>
+        用户&nbsp;名：<input type="text" name="a-username" id="a-username"><br/>
+        密&nbsp;&nbsp;&nbsp;码：<input type="password" name="a-password" id="a-password"><br/>
+        <input type="button" value="登录" id="btn">
+    </form>
+
+    <script src="lib/jquery-1.11.2.js"></script>
+    <script>
+        $(function(){
+            $("#btn").on("click",function () {
+                var aUsername = document.getElementById('a-username').value;
+                var aPassword = document.getElementById('a-password').value;
+                var result = JSON.stringify({
+                    "aUsername": aUsername,
+                    "aPassword": aPassword
+                });
+                $.ajax({
+                    contentType: "application/json",
+                    url: "/login/admin",
+                    type: "POST",
+                    data: result,
+                    dataType: "json",
+                    async: false,
+                    success: function (res) {
+                        window.location.href = "/admin-home";
+                    },
+                    error: function (res) {
+                        alert("用户名或密码不正确！");
+                    }
+                })
+            })
+        });
+    </script>
+</body>
+</html>

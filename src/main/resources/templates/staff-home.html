@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>员工主页</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+        }
+        #header{
+            background: blue;
+            height: 100px;
+            line-height: 100px;
+            color: #ffffff;
+            text-align: center;
+        }
+        #m-menu{
+            list-style: none;
+            width: 15%;
+            background: #eaf1fb;
+            position: absolute;
+            top: 100px;
+            bottom: 70px;
+            left: 0;
+        }
+        #m-menu li{
+            height: 50px;
+            line-height: 50px;
+            padding-left: 10px;
+            border-bottom: #cccccc solid 1px;
+            font-size: 22px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        #m-menu .select{
+            background: aqua;
+            color: #ffffff;
+        }
+        #details{
+            margin-left: 15%;
+        }
+        #details>div{
+            width: 80%;
+            margin: 2% auto;
+            display: none;
+        }
+        #details .select{
+            display: block;
+        }
+        #details table tr{
+            height: 30px;
+        }
+        #details table td{
+            padding-left: 10px;
+            width: 630px;
+        }
+        .search{
+            margin-left: 500px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        #footer{
+            height: 70px;
+            background: blue;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+        #uMoney{
+            margin: 20px 400px;
+        }
+    </style>
+</head>
+<body>
+<div id="header">
+    <h1>健身房管理系统</h1>
+
+</div>
+<div id="container">
+    <ul id="m-menu">
+        <li class="select">用户查找</li>
+        <li>记录查找</li>
+        <li>商品入库</li>
+        <li>商品出售</li>
+        <li>充值</li>
+        <li>打卡</li>
+    </ul>
+    <div id="details">
+        <div class="select">
+            <input type="text" placeholder="按ID查找" class="search" id="find-id">
+            <button id="find">搜索</button><br/>
+            <input type="text" placeholder="按ID查找" class="search" id="delete-id">
+            <button id="delete">删除</button><br/>
+            用户名：<input type="text" id="aUsername">
+            密码：<input type="text" id="aPassword">
+            生日：<input type="date" id="aBirthday">
+            电话：<input type="text" id="aPhone">
+            <button id="add">添加</button>
+            <table border="1" cellspacing="0" id="userList">
+                <tr>
+                    <td>id</td>
+                    <td>用户名</td>
+                    <td>生日</td>
+                    <td>电话</td>
+                </tr><br/>
+            </table>
+        </div>
+        <div>
+            <table border="1" cellspacing="0" id="e-record">
+                <tr>
+                    <td>记录id</td>
+                    <td>用户id</td>
+                    <td>员工id</td>
+                    <td>消费金额</td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <table border="1" cellspacing="0" id="goods-list">
+                <tr>
+                    <td>商品名称</td>
+                    <td>商品金额</td>
+                    <td>商品数量</td>
+                </tr>
+                <tr>
+                    <td><input type="text" id="g-name"></td>
+                    <td><input type="number" id="g-money"></td>
+                    <td><input type="number" id="g-number"></td>
+                    <td><button id="good-add">添加</button></td>
+                </tr>
+            </table>
+            <table border="1" cellspacing="0" id="product-detail" style="margin-top: 20px;">
+                <tr>
+                    <td>商品id</td>
+                    <td>商品名称</td>
+                    <td>商品价格</td>
+                    <td>商品数量</td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <table border="1" cellspacing="0">
+                <tr>
+                    <td>商品id</td>
+                    <td>用户id</td>
+                    <td>员工id</td>
+                    <td>商品金额</td>
+                </tr>
+                <tr>
+                    <td><input type="text" id="p-id"></td>
+                    <td><input type="text" id="u-id"></td>
+                    <td><input type="text" id="s-id"></td>
+                    <td><input type="number" id="p-price"></td>
+                </tr>
+            </table>
+            <button id="sell" style="margin: 20px auto;">出售</button>
+            <table border="1" cellspacing="0" id="user-detail">
+                <tr>
+                    <td>商品id</td>
+                    <td>商品名称</td>
+                    <td>商品价格</td>
+                    <td>商品数量</td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <input type="text" placeholder="按ID查找" class="search" id="user-id">
+            <button id="find1">搜索</button><br/>
+            <div id="uMoney">
+                充值金额：<input type="number" id="money">
+                <button id="yes">确定</button>
+            </div>
+        </div>
+        <div>
+            <table border="1" cellspacing="0">
+                <tr>
+                    <td>用户id</td>
+                    <td>员工id</td>
+                    <td>打卡费用</td>
+                </tr>
+                <tr>
+                    <td><input type="text" id="uID"></td>
+                    <td><input type="text" id="sID"></td>
+                    <td><input type="number" id="signMoney"></td>
+                </tr>
+            </table>
+            <button id="signIn" style="margin: 20px auto;">签到</button>
+            <table border="1" cellspacing="0" id="u-detail"></table>
+        </div>
+    </div>
+</div>
+<div id="footer"></div>
+
+<script src="lib/jquery-1.11.2.js"></script>
+<script>
+    $(function () {
+        $('#m-menu li').on("click",function (e) {
+            $(e.target).addClass('select').siblings().removeClass('select');
+            $('#details>div').eq($(e.target).index()).addClass('select').siblings().removeClass('select');
+        });
+        //获取用户列表
+        $.ajax({
+            contentType: "application/json",
+            url: "/stuff/userList",
+            type: "GET",
+            dataType: "json",
+            async: false,
+            success: function (res) {
+                // var val = "";
+                // for(var i=0; i<res.length; i++){
+                //     val+="<tr><td>"+res[i].uid+"</td><td>"+res[i].username+"</td><td>"+res[i].password+"</td><td>"+res[i].birthday+"</td><td>"+res[i].phone+"</td></tr>;
+                // }
+                for(var i=0; i<res.length; i++){
+
+                    $('#userList').append(("<tr><td>"+res[i].uid+"</td><td>"+res[i].username+"</td><td>"+res[i].birthday+"</td><td>"+res[i].phone+"</td></tr>"));
+                }
+
+            },
+            error: function (res) {
+                alert("无法获取用户列表！");
+            }
+        });
+        //按ID搜索用户
+        $('#find').on("click",function () {
+            var sFind = document.getElementById('find-id').value;
+            $.ajax({
+                contentType: "application/json",
+                url: "/stuff/getUser/"+sFind,
+                type: "GET",
+                dataType: "json",
+                async: false,
+                success: function (res) {
+                    $('#userList').empty();
+                    $('#userList').append(("<tr><td>id</td><td>用户名</td><td>生日</td><td>电话</td></tr><tr><td>"+res.uid+"</td><td>"+res.username+"</td><td>"+res.birthday+"</td><td>"+res.phone+"</td><td></tr>"));
+                },
+                error:function (res) {
+                    alert("没有搜索到该用户！");
+                }
+            })
+        });
+        //按ID删除用户
+        $('#delete').on("click",function () {
+            var sDelete = document.getElementById('delete-id').value;
+            $.ajax({
+                contentType: "application/json",
+                url: "/stuff/deleteUser/"+sDelete,
+                type: "DELETE",
+                dataType: "json",
+                async: false,
+                success: function (res) {
+                    $('#userList').empty();
+                    for(var i=0; i<res.length; i++){
+                        $('#userList').append(("<tr><td>"+res[i].uid+"</td><td>"+res[i].username+"</td><td>"+res[i].birthday+"</td><td>"+res[i].phone+"</td></tr>"));
+                    }
+                },
+                error:function (res) {
+                    alert("没有删除该用户！");
+                }
+            })
+        });
+        //添加用户
+        $('#add').on("click",function () {
+            var uUsername = document.getElementById('aUsername').value;
+            var uPassword = document.getElementById('aPassword').value;
+            var uBirthday = document.getElementById('aBirthday').value;
+            var uPhone = document.getElementById('aPhone').value;
+            var aUser = JSON.stringify({
+                'username': uUsername,
+                'password': uPassword,
+                'birthday': uBirthday,
+                'phone': uPhone
+            });
+            $.ajax({
+                contentType: "application/json",
+                url: "/stuff/userAdd",
+                type: "POST",
+                data: aUser,
+                dataType: "json",
+                async: false,
+                success: function(res){
+                    $('#userList').append(("<tr><td>"+res.uid+"</td><td>"+res.username+"</td><td>"+res.birthday+"</td><td>"+res.phone+"</td></tr>"));
+
+                },
+                error: function (res) {
+                    alert("添加失败！");
+                }
+            })
+        });
+
+        //获取消费记录
+        $.ajax({
+            contentType: "application/json",
+            url: "/record",
+            type: "GET",
+            dataType: "json",
+            async: false,
+            success: function (res) {
+                // var val = "";
+                // for(var i=0; i<res.length; i++){
+                //     val+="<tr><td>"+res[i].uid+"</td><td>"+res[i].username+"</td><td>"+res[i].password+"</td><td>"+res[i].birthday+"</td><td>"+res[i].phone+"</td></tr>;
+                // }
+                for(var i=0; i<res.length; i++){
+                    $('#e-record').append(("<tr><td>"+res[i].rid+"</td><td>"+res[i].uid+"</td><td>"+res[i].sid+"</td><td>"+res[i].amount+"</td></tr>"));
+                }
+
+            },
+            error: function (res) {
+                alert("无法获取消费记录！");
+            }
+        });
+
+        //商品入库
+        $('#good-add').on("click",function () {
+            var gName = document.getElementById('g-name').value;
+            var gMoney = document.getElementById('g-money').value;
+            var gNumber = document.getElementById('g-number').value;
+            // $('#goods-list').append(("<tr><td>"+gName+"</td><td>"+gMoney+"</td><td>"+gNumber+"</td></tr>"));
+            var goods = JSON.stringify({
+                'gname': gName,
+                'price': gMoney,
+                'number': gNumber
+            });
+            $.ajax({
+                contentType: "application/json",
+                url: "/goods/goodsAdd",
+                type: "POST",
+                data: goods,
+                dataType: "json",
+                async: false,
+                success: function(res){
+                    $('#product-detail').append(("<tr><td>"+res.gid+"</td><td>"+res.gname+"</td><td>"+res.price+"</td><td>"+res.number+"</td></tr>"));
+
+                },
+                error: function (res) {
+                    // alert("添加失败！");
+                    console.log("添加失败");
+                }
+            })
+        });
+
+        //商品出售
+        $('#sell').on("click",function () {
+
+            var pId = document.getElementById('p-id').value;
+            var uId = document.getElementById('u-id').value;
+            var sId = document.getElementById('s-id').value;
+            var pPrice = document.getElementById('p-price').value;
+            var result = JSON.stringify({
+                'gid': pId,
+                'uid': uId,
+                'sid': sId,
+                'amount': pPrice
+            });
+            $.ajax({
+                contentType: "application/json",
+                url: "/goods/outGoods",
+                type: "POST",
+                data: result,
+                dataType: "json",
+                async: false,
+                success: function (res) {
+                    $('#user-detail').empty();
+                    $('#user-detail').append("<tr><td>用户id</td><td>用户名</td><td>剩余金额</td></tr><tr><td>"+res.uid+"</td><td>"+res.username+"</td><td>"+res.money+"</td></tr>");
+                },
+                error: function () {
+                    alert("销售失败!");
+                }
+            })
+        });
+        //获取商品列表
+        $.ajax({
+            contentType: "application/json",
+            url: "/goods",
+            type: "GET",
+            dataType: "json",
+            async: false,
+            success: function (res) {
+                for (var i = 0; i < res.length; i++) {
+                    $('#user-detail').add('#product-detail').append(("<tr><td>" + res[i].gid + "</td><td>" + res[i].gname + "</td><td>" + res[i].price + "</td><td>" + res[i].number + "</td></tr>"));
+                }
+            },
+            error: function (res) {
+                alert("无法获取商品列表！");
+            }
+        });
+
+        //充值按ID查找用户
+        $('#find1').on("click",function () {
+            var sFind = document.getElementById('user-id').value;
+            $.ajax({
+                contentType: "application/json",
+                url: "/stuff/getUser/"+sFind,
+                type: "GET",
+                dataType: "json",
+                async: false,
+                success: function (res) {
+                    if(res.Money == undefined){
+                        res.Money = 0;
+                    }
+                    $('#uMoney').append(("<table border='1' cellspacing='0'><tr><td>用户id</td><td>用户姓名</td><td>用户余额</td></td></tr><tr><td>"+res.uid+"</td><td>"+res.username+"</td><td>"+res.money+"</td></tr></table>"));
+                },
+                error:function (res) {
+                    alert("没有搜索到该用户！");
+                }
+            })
+        });
+        //确认充值
+        $('#yes').on("click",function () {
+            var allMoney = document.getElementById('money').value;
+            var sFind = document.getElementById('user-id').value;
+            var sid = sessionStorage.getItem("sid");
+            var userMoney = JSON.stringify({
+                'uid': sFind,
+                'amount': allMoney,
+                'sid': sid
+            });
+            $.ajax({
+                contentType: "application/json",
+                url: "/record/add",
+                type: "POST",
+                data: userMoney,
+                dataType: "json",
+                async: false,
+                success: function (res) {
+                    $('allMoney').empty();
+                    $('#uMoney').append(("<table border='1' cellspacing='0'><tr><td>用户id</td><td>用户姓名</td><td>用户余额</td></td></tr><tr><td>"+res.uid+"</td><td>"+res.username+"</td><td>"+res.Money+"</td></tr></table>"));
+                },
+                error:function (res) {
+                    alert("充值成功！");
+                }
+            })
+        });
+
+        //签到
+        $('#signIn').on("click",function () {
+            var uId = document.getElementById('uID').value;
+            var sId = document.getElementById('sID').value;
+            var signMoney = document.getElementById('signMoney').value;
+            var result = JSON.stringify({
+                'uid': uId,
+                'sid': sId,
+                'amount': signMoney
+            });
+            $.ajax({
+                contentType: "application/json",
+                url: "/login/sign",
+                type: "POST",
+                data: result,
+                dataType: "json",
+                async: false,
+                success: function (res) {
+                    $('#u-detail').empty();
+                    $('#u-detail').append("<tr><td>用户id</td><td>用户名</td><td>剩余金额</td></tr><tr><td>"+res.uid+"</td><td>"+res.username+"</td><td>"+res.money+"</td></tr>");
+                },
+                error: function () {
+                    alert("签到失败!");
+                }
+            })
+        });
+    });
+</script>
+</body>
+</html>

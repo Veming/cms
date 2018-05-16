@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户主页</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+        }
+        #header{
+            background: blue;
+            height: 100px;
+            line-height: 100px;
+            color: #ffffff;
+            text-align: center;
+        }
+        #header .info{
+            position: absolute;
+            top: 30px;
+            right: 40px;
+        }
+        #m-menu{
+            list-style: none;
+            width: 15%;
+            background: #eaf1fb;
+            position: absolute;
+            top: 100px;
+            bottom: 70px;
+            left: 0;
+        }
+        #m-menu li{
+            height: 50px;
+            line-height: 50px;
+            padding-left: 10px;
+            border-bottom: #cccccc solid 1px;
+            font-size: 22px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        #m-menu .select{
+            background: aqua;
+            color: #ffffff;
+        }
+        #details{
+            margin-left: 15%;
+        }
+        #details>div{
+            width: 80%;
+            margin: 2% auto;
+            display: none;
+        }
+        #details .select{
+            display: block;
+        }
+        #details table tr{
+            height: 30px;
+        }
+        #details table td{
+            padding-left: 10px;
+            width: 620px;
+        }
+        #footer{
+            height: 70px;
+            background: blue;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h1>健身房管理系统</h1>
+        <div class="info">
+            <span>欢迎登录</span>
+            <span>xxx</span>
+            <a href="index.html">退出</a>
+        </div>
+
+    </div>
+    <div id="container">
+        <ul id="m-menu">
+            <li class="select">查看个人信息</li>
+            <li>修改个人信息</li>
+            <li>查看消费记录</li>
+            <li>充值交费</li>
+        </ul>
+        <div id="details">
+            <div class="select">
+                <table border="1" cellspacing="0">
+                    <tr>
+                        <td>ID</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>用户名</td>
+                        <td>小王</td>
+                    </tr>
+                    <tr>
+                        <td>密码</td>
+                        <td>******</td>
+                    </tr>
+                    <tr>
+                        <td>生日</td>
+                        <td>2000-10-10</td>
+                    </tr>
+                    <tr>
+                        <td>电话</td>
+                        <td>138****5987</td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <form action="">
+                    <table border="1" cellspacing="0">
+                        <tr>
+                            <td>ID</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>用户名</td>
+                            <td><input type="text" placeholder="小王"></td>
+                        </tr>
+                        <tr>
+                            <td>密码</td>
+                            <td><input type="password" placeholder="******"></td>
+                        </tr>
+                        <tr>
+                            <td>生日</td>
+                            <td><input type="text" placeholder="2000-10-10"></td>
+                        </tr>
+                        <tr>
+                            <td>电话</td>
+                            <td><input type="text" placeholder="138****5987"></td>
+                        </tr>
+                    </table>
+                    <div>
+                        <input type="reset" value="重置">
+                        <input type="submit" value="提交">
+                    </div>
+                </form>
+            </div>
+            <div>
+                <table border="1" cellspacing="0">
+                    <tr>
+                        <td>消费日期</td>
+                        <td>消费金额</td>
+                    </tr>
+                    <tr>
+                        <td>2018-05-02</td>
+                        <td>888</td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <form action="">
+                    <table border="1" cellspacing="0">
+                        <tr>
+                            <td>交费日期</td>
+                            <td>交费金额</td>
+                        </tr>
+                        <tr>
+                            <td>2018-05-03</td>
+                            <td><input type="number" placeholder="0"></td>
+                        </tr>
+                    </table>
+                    <input type="submit" value="确认">
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="footer"></div>
+
+    <script src="../static/lib/jquery-1.11.2.js"></script>
+    <script>
+        $(function () {
+           $('#m-menu li').on("click",function (e) {
+               $(e.target).addClass('select').siblings().removeClass('select');
+               $('#details>div').eq($(e.target).index()).addClass('select').siblings().removeClass('select');
+           })
+        });
+    </script>
+</body>
+</html>

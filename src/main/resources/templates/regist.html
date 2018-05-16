@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        #login h1{
+            margin-top: 150px;
+            text-align: center;
+        }
+        #form{
+            width: 450px;
+            height: 200px;
+            margin: 20px auto;
+            padding-left: 20px;
+            padding-top: 20px;
+            background: beige;
+        }
+        #form input{
+            margin-bottom: 10px;
+        }
+        #form input[type="button"]{
+            margin-left: 190px;
+        }
+    </style>
+</head>
+<body>
+<div id="login">
+    <h1>健身房管理系统</h1>
+    <form action="" id="form" method="post">
+        用&nbsp;&nbsp;户：<input type="text" name="username" id="uname"><br/>
+        密&nbsp;&nbsp;码：<input type="password" name="password" id="upass"><br/>
+        生&nbsp;&nbsp;日：<input type="date" name="birthday" id="ubirth"><br/>
+        电&nbsp;&nbsp;话：<input type="text" name="phone" id="uphone">
+
+        <input type="button" value="注册" id="btn">
+    </form>
+</div>
+
+<script src="../static/lib/jquery-1.11.2.js"></script>
+<script>
+    $(function () {
+        $('#btn').on("click",function(){
+            var uName = document.getElementById('uname').value;
+            var uPass = document.getElementById('upass').value;
+            var uBirth = document.getElementById('ubirth').value;
+            var uPhone = document.getElementById('uphone').value;
+
+            var result;
+            $.ajax({
+                url: '127.0.0.1:8080/user/add',
+                type: "POST",
+                dataType: "text",
+                data: {'username':uName,'password':uPass,'birthday':uBirth,'phone':uPhone},
+                async: false,
+                success: function (data) {
+                    console.log(data);
+                }
+            });
+            // $.post("127.0.0.1:8080/user/add",{
+            //     username:'uName',
+            //     password:'uPass'
+            // },function(data,status){
+            //     alert(data);
+            // });
+        });
+    });
+
+
+</script>
+</body>
+</html>
